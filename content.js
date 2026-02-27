@@ -60,7 +60,17 @@ function scrapeFeedVideos() {
         if (titleEl) title = titleEl.textContent.trim() || title;
       }
 
-      videos.push({ id: match[1], title, url: `https://www.youtube.com/watch?v=${match[1]}` });
+      // Extract watch progress percentage if present
+      let progress = 0;
+      const container2 = a.closest('ytd-rich-item-renderer, ytd-video-renderer, yt-lockup-view-model');
+      if (container2) {
+        const bar = container2.querySelector('.ytThumbnailOverlayProgressBarHostWatchedProgressBarSegment');
+        if (bar) {
+          const w = bar.style.width || '';
+          progress = parseFloat(w) || 0;
+        }
+      }
+      videos.push({ id: match[1], title, progress, url: `https://www.youtube.com/watch?v=${match[1]}` });
     }
     if (videos.length > 0) break;
   }
@@ -123,7 +133,16 @@ function buildPlayerUI() {
           </div>
         </div>
         <div id="qt-list" role="list">
-          ${queue.map((v, i) => `
+          ${[...queue].sort((a, b) => {
+            // Watched videos go to the top (scrolled away), current and upcoming below
+            const ai = queue.indexOf(a), bi = queue.indexOf(b);
+            if (ai < idx && bi < idx) return ai - bi;  // watched: oldest first at top
+            if (ai < idx) return -1;                    // watched before current
+            if (bi < idx) return 1;
+            return ai - bi;                             // current + upcoming in order
+          }).map((v) => {
+            const i = queue.indexOf(v);
+            return `
             <div class="qt-item ${i === idx ? "active" : i < idx ? "watched" : ""}"
                  data-index="${i}"
                  role="listitem"
@@ -134,15 +153,21 @@ function buildPlayerUI() {
               ${i === idx ? '<span class="qt-now">NOW</span>' : ""}
               ${i < idx ? '<span class="qt-check" aria-label="Watched">✓</span>' : ""}
             </div>
-          `).join("")}
+            ${v.progress > 0 ? `<div class="qt-progress-bar"><div class="qt-progress-fill" style="width:${v.progress}%"></div></div>` : ''}
+            `;
+          }).join("")}
         </div>
       `;
 
       document.body.appendChild(panel);
 
       setTimeout(() => {
+        const list = panel.querySelector("#qt-list");
         const active = panel.querySelector(".qt-item.active");
-        if (active) active.scrollIntoView({ block: "nearest" });
+        if (list && active) {
+          // Scroll so the active item is at the very top of the list
+          list.scrollTop = active.offsetTop - list.offsetTop;
+        }
       }, 300);
 
       document.getElementById("qt-next").addEventListener("click", () => goToIndex(idx + 1));
