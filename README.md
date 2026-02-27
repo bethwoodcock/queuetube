@@ -6,6 +6,7 @@ Tired of clicking each video one by one in your subscriptions? QueueTube adds a 
 
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-brightgreen?logo=googlechrome)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-blue)
+![No Permissions Required](https://img.shields.io/badge/Permissions-None-brightgreen)
 ![No Data Collected](https://img.shields.io/badge/Privacy-No%20data%20collected-brightgreen)
 
 ---
@@ -16,9 +17,11 @@ Tired of clicking each video one by one in your subscriptions? QueueTube adds a 
 - ⏭️ **Autoplay** — when a video ends, the next one starts automatically
 - ⏮️ **Skip controls** — jump forward or back in your queue at any time
 - 📋 **Queue panel** — shows all queued videos with real titles so you know what's coming next
+- 🔴 **Watch progress bars** — videos you've partially watched show a red progress bar in the queue panel, just like YouTube's own thumbnails, so you can decide whether to skip
 - 🖱️ **Click to jump** — click any video in the panel to skip straight to it
 - 📜 **Load more with scrolling** — scroll down your subscriptions before hitting Queue to load even more videos (you can queue 300+ this way!)
-- 🔒 **Private** — no data is ever collected or sent anywhere
+- 🔀 **Guilt-free sidebar browsing** — spot something interesting in the sidebar? Click it and watch it normally — your queue is still saved, so just hit ▶ in the panel to jump straight back to where you were. Or open it in a new tab to keep your queue playing uninterrupted in the original tab
+- 🔒 **Private & zero permissions** — no data collected, no permissions required, queue lives only in your current tab
 
 ---
 
@@ -43,7 +46,7 @@ Toggle on **Developer mode** in the top-right corner of the Extensions page.
 
 ### Step 4 — Load the extension
 
-Click **Load unpacked**, then select the folder you unzipped (the one containing `manifest.json`).
+Click **Load unpacked**, then select the `queuetube-main` folder you unzipped.
 
 ### Step 5 — Done!
 
@@ -70,19 +73,30 @@ QueueTube will appear in your extension list. You're ready to go.
 | ✕ | Stop the queue |
 | Click a title | Jump straight to that video |
 
+### Reading the progress bars
+
+Videos you've already partially watched will show a small red bar beneath their title in the queue panel — identical to the progress bars YouTube shows on thumbnails. Use these to decide whether to skip a video you've already seen a bit of.
+
+### Browsing the sidebar without losing your queue
+
+See something interesting in YouTube's suggested sidebar while watching a queued video? You have two options:
+
+- **Click it directly** — QueueTube saves your queue in the background. Watch the video, then hit ▶ in the panel to jump straight back to your next queued video
+- **Right-click → open in a new tab** — that tab is completely independent with no queue panel, leaving your original tab playing uninterrupted
+
 ---
 
 ## Tips
 
 - **More videos = better experience.** Scroll all the way to the bottom of your subscriptions before clicking Queue to get the maximum number of videos loaded. YouTube loads them in batches as you scroll.
-- The queue persists if you accidentally close the panel — just navigate to a video and it'll pick back up.
+- **Past videos scroll up.** The queue panel always shows the currently playing video at the top — scroll up in the panel to see what you've already watched.
 - Click ✕ on the panel at any time to stop the queue and go back to browsing normally.
 
 ---
 
 ## Privacy
 
-QueueTube stores your queue **locally on your device only** using Chrome's built-in storage. No browsing data, no personal information, and nothing at all is ever sent to any external server. See [PRIVACY_POLICY.md](./PRIVACY_POLICY.md) for full details.
+QueueTube requires **zero browser permissions** and stores your queue in your current tab's session memory only — it's gone the moment you close the tab. No browsing data, no personal information, and nothing is ever sent anywhere. See [PRIVACY_POLICY.md](./PRIVACY_POLICY.md) for full details.
 
 ---
 
@@ -95,3 +109,5 @@ Found a bug or have a suggestion? Please [open an issue](../../issues) — all f
 ## Coming soon (maybe)
 
 - Chrome Web Store release
+- Auto-scroll to load all videos before queuing
+- Configurable autoplay delay
