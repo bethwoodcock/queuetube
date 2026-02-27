@@ -6,12 +6,13 @@
 QueueTube does not collect, transmit, or share any personal data. Ever.
 
 ## What data is stored
-QueueTube stores the following data **locally on your device only**, using Chrome's `storage.local` API:
+QueueTube stores the following data in your **current tab's session memory only** (`sessionStorage`):
 
 - The list of video URLs and titles queued from your subscriptions feed
 - Your current position in the queue
+- Watch progress percentages read from YouTube's own thumbnail display
 
-This data is used solely to enable queue playback and is never sent anywhere.
+This data exists only for the lifetime of the tab. It is never written to disk, never shared, and is automatically cleared the moment you close the tab.
 
 ## What data is NOT collected
 - No browsing history
@@ -24,7 +25,7 @@ This data is used solely to enable queue playback and is never sent anywhere.
 QueueTube communicates with no external servers. It operates entirely within your browser on youtube.com.
 
 ## Permissions
-- **`storage`** — used to save your queue locally between page navigations
+QueueTube requests **no browser permissions**. It does not access your Google account, YouTube history, or any data outside of the current page.
 
 ## Contact
 If you have any questions, please open an issue on the GitHub repository.
