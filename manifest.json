@@ -3,7 +3,6 @@
   "name": "QueueTube",
   "version": "1.0.0",
   "description": "Queue your YouTube subscription feed and watch videos back-to-back like a playlist. Scroll to load videos, click Queue, and enjoy hands-free viewing.",
-  "homepage_url": "https://bethwoodcock.neocities.org/tools/queuetube",
   "permissions": ["storage"],
   "content_scripts": [
     {
