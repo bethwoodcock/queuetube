@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "QueueTube",
   "version": "1.0.0",
-  "description": "Queue your YouTube subscription feed and watch videos back-to-back like a playlist. Scroll to load videos, click Queue, and enjoy hands-free viewing.",
+  "description": "Queue your YouTube subscription feed and watch videos like a playlist.",
   "permissions": ["storage"],
   "content_scripts": [
     {
