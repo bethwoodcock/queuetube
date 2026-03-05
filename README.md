@@ -4,10 +4,16 @@
 
 Tired of clicking each video one by one in your subscriptions? QueueTube adds a single button to your YouTube subscriptions page that instantly queues everything up and autoplays them in order, with full skip and navigation controls.
 
-![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-brightgreen?logo=googlechrome)
+[![Available on the Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install%20Now-brightgreen?logo=googlechrome)](https://chromewebstore.google.com/detail/queuetube/fjcljgepicfodmpacgfimeepjibomlcd)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-blue)
 ![No Permissions Required](https://img.shields.io/badge/Permissions-None-brightgreen)
 ![No Data Collected](https://img.shields.io/badge/Privacy-No%20data%20collected-brightgreen)
+
+## Install
+
+**[➡️ Get QueueTube on the Chrome Web Store](https://chromewebstore.google.com/detail/queuetube/fjcljgepicfodmpacgfimeepjibomlcd)**
+
+Or install manually from GitHub if you prefer — instructions below.
 
 ---
 
@@ -25,9 +31,9 @@ Tired of clicking each video one by one in your subscriptions? QueueTube adds a 
 
 ---
 
-## Installation (for testers)
+## Manual installation from GitHub
 
-Since this isn't on the Chrome Web Store yet, you'll need to load it manually. It takes about two minutes.
+Prefer to install directly from the source? Follow these steps. Otherwise, the easiest way is the [Chrome Web Store](https://chromewebstore.google.com/detail/queuetube/fjcljgepicfodmpacgfimeepjibomlcd).
 
 ### Step 1 — Download the files
 
@@ -102,12 +108,11 @@ QueueTube requires **zero browser permissions** and stores your queue in your cu
 
 ## Feedback
 
-Found a bug or have a suggestion? Please [open an issue](../../issues) — all feedback welcome, especially while this is in early testing!
+Found a bug or have a suggestion? Please [open an issue](../../issues) — all feedback welcome!
 
 ---
 
-## Coming soon (maybe)
+## Coming soon
 
-- Chrome Web Store release
-- Auto-scroll to load all videos before queuing
-- Configurable autoplay delay
+- Headphone and media button functionality
+- Previous queues saved in memory to continue later
