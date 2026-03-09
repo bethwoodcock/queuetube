@@ -116,3 +116,4 @@ Found a bug or have a suggestion? Please [open an issue](../../issues) — all f
 
 - Headphone and media button functionality
 - Previous queues saved in memory to continue later
+- Tagging functionality to only queue videos from channels you choose
