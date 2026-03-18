@@ -1,5 +1,20 @@
 /* QueueTube - styles.css */
 
+/* ── Button wrapper — fixed, centred, does NOT shift when tag row opens ── */
+#queuetube-btn-wrapper {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  white-space: nowrap;
+  /* wrapper width is determined only by Queue btn + hash btn + continue btn.
+     The tag row is absolutely positioned so it NEVER affects this width. */
+}
+
 #queuetube-btn {
   display: flex;
   align-items: center;
@@ -16,14 +31,136 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.4);
   transition: background 0.15s, transform 0.1s;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 #queuetube-btn:hover { background: #cc0000; transform: scale(1.03); }
 #queuetube-btn:active { transform: scale(0.97); }
-#queuetube-btn:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 2px;
+#queuetube-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* ── Hash tag filter button ── */
+
+#queuetube-hash-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  transition: background 0.15s, transform 0.15s;
+  flex-shrink: 0;
 }
+
+#queuetube-hash-btn:hover { background: #cc0000; transform: scale(1.07); }
+#queuetube-hash-btn.active { background: #990000; }
+#queuetube-hash-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* ── Tag row — inline, slides open horizontally right of Queue btn ──
+   Hash # btn sits AFTER the tag row (tags appear between Queue and #).
+   Continue btn fades via opacity — no layout shift. */
+
+#queuetube-tag-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    max-width 0.35s cubic-bezier(0.34, 1.42, 0.64, 1),
+    opacity 0.25s ease;
+}
+
+#queuetube-tag-row.open {
+  max-width: 800px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.queuetube-tag-btn {
+  display: flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #ff0000;
+  border-radius: 20px;
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+  animation: qt-tag-pop 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.queuetube-tag-btn:hover { background: #2a0000; transform: scale(1.05); }
+.queuetube-tag-btn:active { transform: scale(0.96); }
+
+@keyframes qt-tag-pop {
+  from { opacity: 0; transform: scale(0.6) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Continue Previous Queue button ──
+   Uses opacity + pointer-events for a smooth fade instead of display:none,
+   so the transition animates rather than snapping. Width is preserved so
+   there's no layout shift on the Queue button. */
+
+#queuetube-continue-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px 8px 16px;
+  background: #212121;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 20px;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  white-space: nowrap;
+  flex-shrink: 0;
+  /* Fade transition */
+  opacity: 1;
+  transition: background 0.15s, opacity 0.2s ease;
+}
+
+#queuetube-continue-btn:hover { background: #2e2e2e; }
+
+/* When tag panel is open, fade continue btn out (no layout shift) */
+#queuetube-continue-btn.qt-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.qt-continue-discard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 11px;
+  background: rgba(255,255,255,0.12);
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.qt-continue-discard:hover { background: rgba(255, 80, 80, 0.5); }
 
 /* ── Queue panel ── */
 
@@ -61,17 +198,8 @@
   flex-shrink: 0;
 }
 
-#qt-title {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-
-#qt-controls {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
+#qt-title { font-size: 13px; font-weight: 600; letter-spacing: 0.3px; }
+#qt-controls { display: flex; align-items: center; gap: 4px; }
 
 #qt-controls button {
   background: rgba(255,255,255,0.2);
@@ -91,12 +219,7 @@
 #qt-controls button:hover { background: rgba(255,255,255,0.35); }
 #qt-controls button:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
 
-#qt-counter {
-  font-size: 12px;
-  color: rgba(255,255,255,0.85);
-  min-width: 40px;
-  text-align: center;
-}
+#qt-counter { font-size: 12px; color: rgba(255,255,255,0.85); min-width: 40px; text-align: center; }
 
 #qt-list {
   overflow-y: auto;
@@ -124,53 +247,18 @@
 .qt-item.active { background: #1a1a1a; color: #fff; }
 .qt-item.watched { opacity: 0.45; }
 
-.qt-num {
-  font-size: 11px;
-  color: #888;
-  min-width: 20px;
-  text-align: right;
-  flex-shrink: 0;
-}
-
-.qt-name {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  line-height: 1.3;
-}
-
+.qt-num { font-size: 11px; color: #888; min-width: 20px; text-align: right; flex-shrink: 0; }
+.qt-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1.3; }
 .qt-item.active .qt-name { color: #fff; }
 
 .qt-now {
-  font-size: 10px;
-  font-weight: 700;
-  color: #ff0000;
-  background: rgba(255,0,0,0.12);
-  padding: 1px 5px;
-  border-radius: 3px;
-  flex-shrink: 0;
+  font-size: 10px; font-weight: 700; color: #ff0000;
+  background: rgba(255,0,0,0.12); padding: 1px 5px; border-radius: 3px; flex-shrink: 0;
 }
 
-.qt-check {
-  color: #4caf50;
-  font-size: 12px;
-  flex-shrink: 0;
-}
-
-.qt-progress-bar {
-  height: 2px;
-  background: #333;
-  margin: 0 14px 4px;
-  border-radius: 1px;
-  overflow: hidden;
-}
-
-.qt-progress-fill {
-  height: 100%;
-  background: #ff0000;
-  border-radius: 1px;
-}
+.qt-check { color: #4caf50; font-size: 12px; flex-shrink: 0; }
+.qt-progress-bar { height: 2px; background: #333; margin: 0 14px 4px; border-radius: 1px; overflow: hidden; }
+.qt-progress-fill { height: 100%; background: #ff0000; border-radius: 1px; }
 
 /* ── Toast ── */
 
@@ -193,7 +281,106 @@
   max-width: 90vw;
 }
 
-#queuetube-toast.visible {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+#queuetube-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── Capture button (channels page) ── */
+
+#queuetube-capture-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+  animation: qt-slide-in 0.25s ease;
 }
+
+#queuetube-capture-btn:hover { background: #cc0000; transform: scale(1.03); }
+#queuetube-capture-btn:active { transform: scale(0.97); }
+
+/* ── Capture overlay ── */
+
+#queuetube-capture-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: qt-fade-in 0.2s ease;
+}
+
+@keyframes qt-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+#qt-capture-box {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 36px 48px;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+  max-width: 360px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+}
+
+#qt-capture-spinner {
+  width: 40px; height: 40px;
+  border: 3px solid #333;
+  border-top-color: #ff0000;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: qt-spin 0.8s linear infinite;
+}
+
+@keyframes qt-spin { to { transform: rotate(360deg); } }
+
+#qt-capture-msg { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+#qt-capture-sub { font-size: 13px; color: #aaa; margin-bottom: 14px; }
+#qt-capture-count { font-size: 13px; color: #ff6666; font-weight: 500; }
+
+/* ── Queue Unwatched button ── */
+
+#queuetube-unwatched-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(20, 20, 20, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ff6666;
+  border: 1px solid rgba(255, 0, 0, 0.5);
+  border-radius: 20px;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#queuetube-unwatched-btn:hover {
+  background: rgba(180, 0, 0, 0.85);
+  color: #fff;
+  border-color: #ff0000;
+  transform: scale(1.03);
+}
+#queuetube-unwatched-btn:active { transform: scale(0.97); }
+#queuetube-unwatched-btn:focus-visible { outline: 2px solid #ff6666; outline-offset: 2px; }
