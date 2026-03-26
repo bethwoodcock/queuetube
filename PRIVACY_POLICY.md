@@ -1,6 +1,6 @@
 # QueueTube Privacy Policy
 
-**Last updated:** 2026-03-18
+**Last updated:** 2026-03-26
 
 ## Summary
 QueueTube does not collect, transmit, or share any personal data. All data is stored locally in your browser only and never leaves your device.
@@ -34,12 +34,11 @@ This data never leaves your browser. It is never written to any server, synced t
 
 ## Permissions
 
-QueueTube requests two browser permissions:
+QueueTube requests one browser permission:
 
 - **`storage`** — required to save and retrieve your channel list and tags using the extension's own sandboxed storage (`chrome.storage.local`). This means the tag manager works even when YouTube is not open in a tab. This permission only accesses QueueTube's own data and cannot read anything outside the extension.
-- **`tabs`** — required to open YouTube in a new tab when you click links inside the extension popup (e.g. "Go to youtube.com/feed/channels").
 
-QueueTube does **not** use these permissions to read your browsing history, access any data outside of QueueTube's own storage, or collect any data.
+QueueTube does **not** use this permission to read your browsing history, access any data outside of QueueTube's own storage, or collect any data.
 
 ## Third parties
 QueueTube communicates with no external servers. It operates entirely within your browser.
