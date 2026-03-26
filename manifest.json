@@ -6,9 +6,15 @@
   "homepage_url": "https://github.com/bethwoodcock/queuetube/",
   "content_scripts": [
     {
-      "matches": ["https://www.youtube.com/*"],
-      "js": ["content.js"],
-      "css": ["styles.css"],
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
       "run_at": "document_idle"
     }
   ],
@@ -22,8 +28,7 @@
     "default_popup": "popup.html"
   },
   "permissions": [
-    "scripting",
-    "tabs"
+    "storage"
   ],
   "host_permissions": [
     "https://www.youtube.com/*"
